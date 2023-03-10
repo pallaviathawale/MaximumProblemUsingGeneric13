@@ -6,76 +6,35 @@ using System.Threading.Tasks;
 
 namespace MaximumNumberUsingGenerics
 {
-    public class GenericMaximum<T> where T : IComparable
+    public class GenericMaximum<T> where T : IComparable //createclass
     {
-        public T firstNumber, secondNumber, thirdNumber;
-        public GenericMaximum(T firstNumber, T secondNumber, T thirdNumber)
+        public T[] value; // accepting array values
+        public GenericMaximum(T[] value) //method-parameterised constructor
         {
-            this.firstNumber = firstNumber;
-            this.secondNumber = secondNumber;
-            this.thirdNumber = thirdNumber;
-        }
-
-        public static T MaxNumber(T firstNumber, T secondNumber, T thirdNumber)
+            this.value = value; 
+        }   
+        public T[] Sort(T[] values) //accept generic datatype and sort that values
         {
-            if (firstNumber.CompareTo(secondNumber) > 0 && firstNumber.CompareTo(thirdNumber) > 0 ||
-                firstNumber.CompareTo(secondNumber) >= 0 && firstNumber.CompareTo(thirdNumber) > 0 ||
-                firstNumber.CompareTo(secondNumber) > 0 && firstNumber.CompareTo((T)firstNumber) >= 0)
-            {
-                return firstNumber;
-            }
-            if (secondNumber.CompareTo(firstNumber) > 0 && secondNumber.CompareTo(thirdNumber) > 0 ||
-                secondNumber.CompareTo(firstNumber) >= 0 && secondNumber.CompareTo(thirdNumber) > 0 ||
-                secondNumber.CompareTo(firstNumber) > 0 && secondNumber.CompareTo(thirdNumber) >= 0)
-            {
-                return secondNumber;
-            }
-            if (thirdNumber.CompareTo(firstNumber) > 0 && thirdNumber.CompareTo(secondNumber) > 0 ||
-                thirdNumber.CompareTo(firstNumber) >= 0 && thirdNumber.CompareTo(secondNumber) > 0 ||
-                thirdNumber.CompareTo(firstNumber) > 0 && thirdNumber.CompareTo(secondNumber) >= 0)
-
-            {
-                return thirdNumber;
-            }
-            return default;
+            Array.Sort(values); //inbuilt method which sort array
+            return values;
         }
-        //public static double MaximumFloatCheck(double firstNumber, double secondNumber, double thirdNumber)
+        public T MaxValue(params T[] values)
+        {
+            var sorted_values = Sort(values);
+            return sorted_values[^1];
+        }
+        //public T MaxMethod()
         //{
-        //    if (firstNumber.CompareTo(secondNumber) > 0 && firstNumber.CompareTo(thirdNumber) > 0)
-        //    {
-        //        return firstNumber;
-        //    }
-        //    if (secondNumber.CompareTo(firstNumber) > 0 && secondNumber.CompareTo(thirdNumber) > 0)
-        //    {
-        //        return secondNumber;
-        //    }
-        //    if (thirdNumber.CompareTo(firstNumber) > 0 && thirdNumber.CompareTo(secondNumber) > 0)
-        //    {
-        //        return thirdNumber;
-        //    }
-        //    throw new Exception("firstNumber, secondNumber, thirdNumber are same");
+        //    var max = MaxValue(this.value);
+        //    return max;
         //}
-
-        //public static string MaximumStringCheck(string firstNumber, string secondNumber, string thirdNumber)
-        //{
-        //    if (firstNumber.CompareTo(secondNumber) > 0 && firstNumber.CompareTo(thirdNumber) > 0)
-        //    {
-        //        return firstNumber;
-        //    }
-        //    if (secondNumber.CompareTo(firstNumber) > 0 && secondNumber.CompareTo(thirdNumber) > 0)
-        //    {
-        //        return secondNumber;
-        //    }
-        //    if (thirdNumber.CompareTo(firstNumber) > 0 && thirdNumber.CompareTo(secondNumber) > 0)
-        //    {
-        //        return thirdNumber;
-        //    }
-        //    throw new Exception("firstNumber, secondNumber, thirdNumber are same");
-        //}
-        public T MaxMethod()
+        public void PrintMaxValue() //method to print maximum number
         {
-            T max = GenericMaximum<T>.MaxNumber(this.firstNumber, this.secondNumber, this.thirdNumber);
-            return max;
+            var max = MaxValue(this.value);
+            Console.WriteLine("Maximum value is: " + max);
+
         }
+
     }
+
 }
